@@ -1,0 +1,40 @@
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ["./public/*.html"],
+  theme: {
+    extend: {
+      colors: {
+        "very-dark-gray": "hsl(0, 0%, 17%)",
+        "dark-gray": "hsl(0, 0%, 59%)",
+      },
+      fontFamily: {
+        rubik: ["Rubik", "sans-serif"],
+      },
+      fontSize: {
+        html: "62.5%",
+        desktop: "75%",
+        land: "58%",
+        port: "53%",
+        18: "18px",
+      },
+      screens: {
+        "large-desktop": "1800px", // 1800px
+        tl: "1200px", // tablet-landscape
+        tp: "900px", // tablet-portrait
+        sp: "300px", // small-phone
+      },
+      keyframes: {
+        // Menu bar
+        go: {
+          from: { transform: "translateX(0%)" },
+          to: { transform: "translateX(105%)" },
+        },
+      },
+      animation: {
+        // Menu bar animations
+        go: "go 0.3s cubic-bezier(1, 0, 0, 1) both",
+      },
+    },
+  },
+  plugins: [],
+};
