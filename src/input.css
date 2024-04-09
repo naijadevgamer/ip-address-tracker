@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.line-horizontal {
+  @apply h-1/2 w-[1px] bg-dark-gray ml-auto self-center -mt-10;
+}
+
+.data {
+  @apply flex w-1/4 h-full font-medium;
+}
+.data__name {
+  @apply text-[1.5rem] text-dark-gray uppercase mb-3;
+}
+
+.data__value {
+  @apply text-5xl text-very-dark-gray;
+}

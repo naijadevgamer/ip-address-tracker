@@ -6,6 +6,7 @@ module.exports = {
       colors: {
         "very-dark-gray": "hsl(0, 0%, 17%)",
         "dark-gray": "hsl(0, 0%, 59%)",
+        Attri: "hsl(228, 45%, 44%)",
       },
       fontFamily: {
         rubik: ["Rubik", "sans-serif"],
@@ -16,6 +17,10 @@ module.exports = {
         land: "58%",
         port: "53%",
         18: "18px",
+      },
+      backgroundImage: {
+        "pattern-d": "url('/images/pattern-bg-desktop.png')",
+        "pattern-m": "url('/images/pattern-bg-mobile.png')",
       },
       screens: {
         "large-desktop": "1800px", // 1800px

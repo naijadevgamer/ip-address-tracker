@@ -1,50 +1,99 @@
 <!DOCTYPE html>
-<html lang="en">
+<html
+  lang="en"
+  class="text-html max-tp:text-port max-tl:text-land min-[1800px]:text-desktop"
+>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- displays site properly based on user's device -->
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
       rel="stylesheet"
     />
-
     <link
       rel="icon"
       type="image/png"
       sizes="32x32"
       href="./images/favicon-32x32.png"
     />
-
     <link rel="stylesheet" href="style.css" />
-
     <title>IP Address Tracker</title>
-
-    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-    <style>
-      .attribution {
-        font-size: 11px;
-        text-align: center;
-      }
-      .attribution a {
-        color: hsl(228, 45%, 44%);
-      }
-    </style>
   </head>
-  <body class="font-rubik text-18">
-    IP Address Tracker Search for any IP address or domain IP Address Location
-    Timezone UTC
-    <!-- add offset value dynamically using the API -->
-    ISP
 
-    <div class="attribution">
+  <body class="font-rubik text-18">
+    <!-- Heading  -->
+    <header class="bg-pattern-d bg-no-repeat bg-cover h-[26rem] pt-12 relative">
+      <!-- Background image  -->
+      <!-- <img src="" alt=""> -->
+
+      <h2 class="text-white text-5xl text-center font-medium">
+        IP Address Tracker
+      </h2>
+
+      <!-- Search  -->
+      <form
+        class="h-20 w-[55rem] mx-auto bg-red-900 flex rounded-2xl overflow-hidden my-12"
+      >
+        <input
+          class="bg-white w-11/12 placeholder:text-dark-gray pl-6 focus:outline-none"
+          type="text"
+          placeholder="Search for any IP address or domain"
+        />
+        <button
+          class="w-1/12 bg-black hover:bg-very-dark-gray flex justify-center items-center duration-200"
+          type="submit"
+        >
+          <img src="images/icon-arrow.svg" alt="Arrow icon" />
+        </button>
+      </form>
+
+      <!-- IP Address Data  -->
+      <main
+        class="flex items-baseline h-[15rem] w-[80%] mx-auto bg-white rounded-2xl pt-10 absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2"
+      >
+        <div class="data">
+          <div class="px-10">
+            <p class="data__name">IP Address</p>
+            <h2 class="data__value">192.212.174.101</h2>
+          </div>
+          <div class="line-horizontal"></div>
+        </div>
+
+        <div class="data">
+          <div class="px-10">
+            <p class="data__name">Location</p>
+            <h2 class="data__value">Brooklyn, NY 10001</h2>
+          </div>
+          <div class="line-horizontal"></div>
+        </div>
+
+        <div class="data">
+          <div class="px-10">
+            <p class="data__name">Timezone</p>
+            <h2 class="data__value">UTC-05:00</h2>
+          </div>
+          <div class="line-horizontal"></div>
+        </div>
+
+        <div class="w-1/4 px-10 font-medium">
+          <p class="data__name">ISP</p>
+          <h2 class="data__value">SpaceX Starlink</h2>
+        </div>
+      </main>
+    </header>
+
+    <!-- Map  -->
+    <div class="map"></div>
+
+    <!-- Footer  -->
+    <div class="text-[1.1rem] text-center">
       Challenge by
-      <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+      <a
+        class="text-Attri"
+        href="https://www.frontendmentor.io?ref=challenge"
+        target="_blank"
         >Frontend Mentor</a
-      >. Coded by <a href="#">Your Name Here</a>.
+      >. Coded by <a href="#">naijadevgamer</a>.
     </div>
   </body>
 </html>
