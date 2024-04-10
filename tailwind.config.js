@@ -24,9 +24,9 @@ module.exports = {
       },
       screens: {
         "large-desktop": "1800px", // 1800px
-        tl: "1200px", // tablet-landscape
-        tp: "900px", // tablet-portrait
-        sp: "300px", // small-phone
+        tl: "1160px", // tablet-landscape
+        tp: "990px", // tablet-portrait
+        bp: "770px", // big-phone
       },
       keyframes: {
         // Menu bar

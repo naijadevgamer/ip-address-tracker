@@ -22,7 +22,9 @@
 
   <body class="font-rubik text-18">
     <!-- Heading  -->
-    <header class="bg-pattern-d bg-no-repeat bg-cover h-[26rem] pt-12 relative">
+    <header
+      class="bg-pattern-d bg-no-repeat bg-cover h-[26rem] pt-12 relative max-bp:bg-pattern-m max-bp:h-[35rem]"
+    >
       <!-- Background image  -->
       <!-- <img src="" alt=""> -->
 
@@ -32,15 +34,15 @@
 
       <!-- Search  -->
       <form
-        class="h-20 w-[55rem] mx-auto bg-red-900 flex rounded-2xl overflow-hidden my-12"
+        class="h-24 w-[90%] max-w-[55rem] mx-auto bg-red-900 flex rounded-3xl overflow-hidden my-12"
       >
         <input
-          class="bg-white w-11/12 placeholder:text-dark-gray pl-6 focus:outline-none"
+          class="bg-white w-[85%] placeholder:text-dark-gray pl-6 focus:outline-none"
           type="text"
           placeholder="Search for any IP address or domain"
         />
         <button
-          class="w-1/12 bg-black hover:bg-very-dark-gray flex justify-center items-center duration-200"
+          class="w-[15%] bg-black hover:bg-very-dark-gray flex justify-center items-center duration-200"
           type="submit"
         >
           <img src="images/icon-arrow.svg" alt="Arrow icon" />
@@ -49,10 +51,10 @@
 
       <!-- IP Address Data  -->
       <main
-        class="flex items-baseline h-[15rem] w-[80%] mx-auto bg-white rounded-2xl pt-10 absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2"
+        class="flex items-baseline h-[15rem] w-[90%] max-w-[120rem] mx-auto bg-white rounded-3xl pt-10 absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 z-10 max-bp:flex-col max-bp:h-auto max-bp:text-center max-bp:py-10"
       >
         <div class="data">
-          <div class="px-10">
+          <div class="pl-10 max-tl:pl-6 max-bp:px-1">
             <p class="data__name">IP Address</p>
             <h2 class="data__value">192.212.174.101</h2>
           </div>
@@ -60,7 +62,7 @@
         </div>
 
         <div class="data">
-          <div class="px-10">
+          <div class="pl-10 max-tl:pl-6 max-bp:px-1">
             <p class="data__name">Location</p>
             <h2 class="data__value">Brooklyn, NY 10001</h2>
           </div>
@@ -68,14 +70,16 @@
         </div>
 
         <div class="data">
-          <div class="px-10">
+          <div class="pl-10 max-tl:pl-6 max-bp:px-1">
             <p class="data__name">Timezone</p>
             <h2 class="data__value">UTC-05:00</h2>
           </div>
           <div class="line-horizontal"></div>
         </div>
 
-        <div class="w-1/4 px-10 font-medium">
+        <div
+          class="w-1/4 px-10 font-medium max-tl:px-6 max-bp:mx-auto max-bp:w-full max-bp:px-1"
+        >
           <p class="data__name">ISP</p>
           <h2 class="data__value">SpaceX Starlink</h2>
         </div>
@@ -83,17 +87,19 @@
     </header>
 
     <!-- Map  -->
-    <div class="map"></div>
-
-    <!-- Footer  -->
-    <div class="text-[1.1rem] text-center">
-      Challenge by
-      <a
-        class="text-Attri"
-        href="https://www.frontendmentor.io?ref=challenge"
-        target="_blank"
-        >Frontend Mentor</a
-      >. Coded by <a href="#">naijadevgamer</a>.
+    <div class="map-h w-full bg-dark-gray relative">
+      <!-- Footer  -->
+      <div
+        class="text-[1.1rem] text-center absolute bottom-0 left-1/2 transform -translate-x-1/2"
+      >
+        Challenge by
+        <a
+          class="text-Attri"
+          href="https://www.frontendmentor.io?ref=challenge"
+          target="_blank"
+          >Frontend Mentor</a
+        >. Coded by <a href="#">naijadevgamer</a>.
+      </div>
     </div>
   </body>
 </html>

@@ -3,16 +3,20 @@
 @tailwind utilities;
 
 .line-horizontal {
-  @apply h-1/2 w-[1px] bg-dark-gray ml-auto self-center -mt-10;
+  @apply h-1/2 w-[1px] bg-dark-gray ml-auto self-center -mt-10 max-bp:hidden;
 }
 
 .data {
-  @apply flex w-1/4 h-full font-medium;
+  @apply flex w-1/4 h-full font-medium max-bp:w-full max-bp:h-[8rem] max-bp:justify-center;
 }
 .data__name {
-  @apply text-[1.5rem] text-dark-gray uppercase mb-3;
+  @apply text-[1.5rem] font-bold text-dark-gray uppercase mb-3;
 }
 
 .data__value {
-  @apply text-5xl text-very-dark-gray;
+  @apply text-5xl text-very-dark-gray max-tl:text-[2.5rem];
+}
+
+.map-h {
+  height: calc(100vh - 26rem);
 }
