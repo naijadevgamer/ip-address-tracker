@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "watch:tailwind": "npx tailwindcss -i ./src/input.css -o ./public/style.css --watch",
+    "watch:ts": "tsc --watch",
     "devserver": "live-server public",
-    "start": "npm-run-all --parallel devserver watch:tailwind"
+    "start": "npm-run-all --parallel devserver watch:tailwind watch:ts"
   },
   "author": "naijadevgamer",
   "license": "ISC",
