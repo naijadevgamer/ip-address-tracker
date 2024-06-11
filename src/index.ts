@@ -1,4 +1,4 @@
-console.log("hello");
-let age: number = 40;
-console.log(age);
-console.log(age);
+// at_2FXcYc9PkYDG1F6AY5vVFyC9L5oHX
+
+const form = document.querySelector("form");
+const input = document.querySelector("input");
