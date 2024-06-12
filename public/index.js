@@ -24,5 +24,19 @@ const fetchLocation = function () {
         }
     });
 };
+const getIP = function () {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const res = yield fetch("https://geo.ipify.org/api/v2/country,city?apiKey=at_2FXcYc9PkYDG1F6AY5vVFyC9L5oHX&ipAddress=172.217.255.255");
+            const data = yield res.json();
+            console.log(data);
+            console.log(typeof res);
+        }
+        catch (error) {
+            console.error("Error:", error);
+        }
+    });
+};
+getIP();
 fetchLocation();
 export {};

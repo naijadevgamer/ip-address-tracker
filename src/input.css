@@ -55,14 +55,12 @@
 }
 
 .error {
-  max-width: 40rem;
-  padding: 5rem 4rem;
+  max-width: 35rem;
   display: flex;
 }
 .error img {
   height: 3rem;
   width: 3rem;
-
   transform: translateY(-0.3rem);
 }
 .error p {

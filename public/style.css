@@ -574,6 +574,10 @@ video {
   z-index: 10;
 }
 
+.m-auto {
+  margin: auto;
+}
+
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -709,6 +713,14 @@ video {
 
 .bg-no-repeat {
   background-repeat: no-repeat;
+}
+
+.p-4 {
+  padding: 1rem;
+}
+
+.p-6 {
+  padding: 1.5rem;
 }
 
 .px-10 {
@@ -873,8 +885,7 @@ video {
 }
 
 .error {
-  max-width: 40rem;
-  padding: 5rem 4rem;
+  max-width: 35rem;
   display: flex;
 }
 
