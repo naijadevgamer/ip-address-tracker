@@ -1,4 +1,4 @@
-// at_2FXcYc9PkYDG1F6AY5vVFyC9L5oHX
+import { API_KEY } from "./config";
 
-const form = document.querySelector("form");
-const input = document.querySelector("input");
+const form = document.querySelector("form") as HTMLFormElement;
+const input = document.querySelector("input") as HTMLInputElement;

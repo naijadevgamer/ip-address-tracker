@@ -8,3 +8,4 @@
 /style-guide.md
 /node_modules
 .vscode/
+/src/config.ts
