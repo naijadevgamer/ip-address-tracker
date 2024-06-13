@@ -26,20 +26,27 @@ const renderSpinner = function (): void {
 };
 
 type Data = {
-  readonly query: string;
-  readonly isp: string;
+  readonly ip: string;
+  readonly connection: { isp: string };
   readonly city: string;
-  readonly timezone: string;
-  readonly region: string;
-  readonly zip: string;
+  readonly timezone: { utc: string };
+  readonly region_code: string;
+  readonly postal: string;
 };
 
 const renderData = function (data: any): void {
-  const { query, isp, city, timezone, region, zip }: Data = data;
+  const {
+    ip,
+    connection: { isp },
+    city,
+    timezone: { utc },
+    region_code: regionCode,
+    postal,
+  }: Data = data;
   const markup = `<div class="data">
           <div class="pl-10 max-tl:pl-6 max-bp:px-1">
             <p class="data__name">IP Address</p>
-            <h2 class="data__value">${query}</h2>
+            <h2 class="data__value">${ip}</h2>
           </div>
           <div class="line-horizontal"></div>
         </div>
@@ -47,7 +54,7 @@ const renderData = function (data: any): void {
         <div class="data">
           <div class="pl-10 max-tl:pl-6 max-bp:px-1">
             <p class="data__name">Location</p>
-            <h2 class="data__value">${city}, ${region} ${zip}</h2>
+            <h2 class="data__value">${city}, ${regionCode} ${postal}</h2>
           </div>
           <div class="line-horizontal"></div>
         </div>
@@ -55,7 +62,7 @@ const renderData = function (data: any): void {
         <div class="data">
           <div class="pl-10 max-tl:pl-6 max-bp:px-1">
             <p class="data__name">Timezone</p>
-            <h2 class="data__value">UTC${timezone}</h2>
+            <h2 class="data__value">UTC${utc}</h2>
           </div>
           <div class="line-horizontal"></div>
         </div>
@@ -83,31 +90,23 @@ const renderError = function (msg: string): void {
 
 const getLocation = async function (): Promise<object> {
   try {
-    // const res: any = await fetch(
-    //   `https://geo.ipify.org/api/v2/country,city?apiKey=${"at_2FXcYc9PkYDG1F6AY5vVFyC9L5oHX"}&ipAddress=172.217.255.255`
-    // );
-    const res2: any = await fetch(`http://ip-api.com/json/`);
-
-    // const data: object = await res.json();
-    const data2: object = await res2.json();
-    // console.log(data);
-    console.log(data2);
-    return data2;
-  } catch (error) {
-    console.error("Error:", error);
-    throw error;
+    const res: any = await fetch(`http://ipwho.is/`);
+    const data: object = await res.json();
+    console.log(data);
+    return data;
+  } catch (err: any) {
+    throw err;
   }
 };
 // getLocation();
 
-const loadData: any = async function () {
+const loadData: any = async function (): Promise<void> {
   try {
     renderSpinner();
     const data: object = await getLocation();
     renderData(data);
-  } catch (error: any) {
-    console.error("Error:", error);
-    renderError(error.message);
+  } catch (err: any) {
+    renderError(err.message);
   }
 };
 

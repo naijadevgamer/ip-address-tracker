@@ -27,11 +27,11 @@ const renderSpinner = function () {
     mainContent.insertAdjacentHTML("afterbegin", markup);
 };
 const renderData = function (data) {
-    const { query, isp, city, timezone, region, zip } = data;
+    const { ip, connection: { isp }, city, timezone: { utc }, region_code: regionCode, postal, } = data;
     const markup = `<div class="data">
           <div class="pl-10 max-tl:pl-6 max-bp:px-1">
             <p class="data__name">IP Address</p>
-            <h2 class="data__value">${query}</h2>
+            <h2 class="data__value">${ip}</h2>
           </div>
           <div class="line-horizontal"></div>
         </div>
@@ -39,7 +39,7 @@ const renderData = function (data) {
         <div class="data">
           <div class="pl-10 max-tl:pl-6 max-bp:px-1">
             <p class="data__name">Location</p>
-            <h2 class="data__value">${city}, ${region} ${zip}</h2>
+            <h2 class="data__value">${city}, ${regionCode} ${postal}</h2>
           </div>
           <div class="line-horizontal"></div>
         </div>
@@ -47,7 +47,7 @@ const renderData = function (data) {
         <div class="data">
           <div class="pl-10 max-tl:pl-6 max-bp:px-1">
             <p class="data__name">Timezone</p>
-            <h2 class="data__value">UTC${timezone}</h2>
+            <h2 class="data__value">UTC${utc}</h2>
           </div>
           <div class="line-horizontal"></div>
         </div>
@@ -74,14 +74,13 @@ const renderError = function (msg) {
 const getLocation = function () {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const res2 = yield fetch(`http://ip-api.com/json/`);
-            const data2 = yield res2.json();
-            console.log(data2);
-            return data2;
+            const res = yield fetch(`http://ipwho.is/`);
+            const data = yield res.json();
+            console.log(data);
+            return data;
         }
-        catch (error) {
-            console.error("Error:", error);
-            throw error;
+        catch (err) {
+            throw err;
         }
     });
 };
@@ -92,9 +91,8 @@ const loadData = function () {
             const data = yield getLocation();
             renderData(data);
         }
-        catch (error) {
-            console.error("Error:", error);
-            renderError(error.message);
+        catch (err) {
+            renderError(err.message);
         }
     });
 };
