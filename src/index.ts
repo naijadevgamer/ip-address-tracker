@@ -12,22 +12,25 @@ const getCurrentPosition = function (): Promise<GeolocationPosition> {
 const fetchLocation = async function () {
   try {
     const position = await getCurrentPosition();
-    // console.log("Latitude:", position.coords.latitude);
+    console.log(position);
     // console.log("Longitude:", position.coords.longitude);
   } catch (error) {
     console.error("Error:", error);
   }
 };
 // 105.119.0.160
-const getIP = async function () {
+const getLocation = async function () {
   try {
     const res: any = await fetch(
-      "https://geo.ipify.org/api/v2/country,city?apiKey=at_2FXcYc9PkYDG1F6AY5vVFyC9L5oHX&ipAddress=172.217.255.255"
+      `https://geo.ipify.org/api/v2/country,city?apiKey=${"at_2FXcYc9PkYDG1F6AY5vVFyC9L5oHX"}&ipAddress=172.217.255.255`
     );
-    const data: object = await res.json();
+    const res2: any = await fetch(`http://ip-api.com/json/`);
 
+    const data: object = await res.json();
+    const data2: object = await res2.json();
     console.log(data);
-    console.log(typeof res);
+    console.log(data2);
+
     // console.log("Latitude:", position.coords.latitude);
     // console.log("Longitude:", position.coords.longitude);
   } catch (error) {
@@ -35,5 +38,5 @@ const getIP = async function () {
   }
 };
 
-getIP();
 fetchLocation();
+getLocation();

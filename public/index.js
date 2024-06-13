@@ -18,25 +18,28 @@ const fetchLocation = function () {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const position = yield getCurrentPosition();
+            console.log(position);
         }
         catch (error) {
             console.error("Error:", error);
         }
     });
 };
-const getIP = function () {
+const getLocation = function () {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const res = yield fetch("https://geo.ipify.org/api/v2/country,city?apiKey=at_2FXcYc9PkYDG1F6AY5vVFyC9L5oHX&ipAddress=172.217.255.255");
+            const res = yield fetch(`https://geo.ipify.org/api/v2/country,city?apiKey=${"at_2FXcYc9PkYDG1F6AY5vVFyC9L5oHX"}&ipAddress=172.217.255.255`);
+            const res2 = yield fetch(`http://ip-api.com/json/`);
             const data = yield res.json();
+            const data2 = yield res2.json();
             console.log(data);
-            console.log(typeof res);
+            console.log(data2);
         }
         catch (error) {
             console.error("Error:", error);
         }
     });
 };
-getIP();
 fetchLocation();
+getLocation();
 export {};
