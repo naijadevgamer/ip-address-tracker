@@ -9,37 +9,94 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 const userForm = document.querySelector("form");
 const userInput = document.querySelector("input");
-const getCurrentPosition = function () {
-    return new Promise((resolve, reject) => {
-        navigator.geolocation.getCurrentPosition(resolve, reject);
+const mainContent = document.querySelector("main");
+let second = 10;
+const timeout = function (s) {
+    return new Promise(function (_, reject) {
+        setTimeout(function () {
+            reject(new Error(`Request took too long! Timeout after ${s} second`));
+        }, s * 1000);
     });
 };
-const fetchLocation = function () {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            const position = yield getCurrentPosition();
-            console.log(position);
-        }
-        catch (error) {
-            console.error("Error:", error);
-        }
-    });
+const clear = function () {
+    mainContent.innerHTML = "";
+};
+const renderSpinner = function () {
+    const markup = `<div class="loader mx-auto"></div>`;
+    clear();
+    mainContent.insertAdjacentHTML("afterbegin", markup);
+};
+const renderData = function (data) {
+    const { query, isp, city, timezone, region, zip } = data;
+    const markup = `<div class="data">
+          <div class="pl-10 max-tl:pl-6 max-bp:px-1">
+            <p class="data__name">IP Address</p>
+            <h2 class="data__value">${query}</h2>
+          </div>
+          <div class="line-horizontal"></div>
+        </div>
+
+        <div class="data">
+          <div class="pl-10 max-tl:pl-6 max-bp:px-1">
+            <p class="data__name">Location</p>
+            <h2 class="data__value">${city}, ${region} ${zip}</h2>
+          </div>
+          <div class="line-horizontal"></div>
+        </div>
+
+        <div class="data">
+          <div class="pl-10 max-tl:pl-6 max-bp:px-1">
+            <p class="data__name">Timezone</p>
+            <h2 class="data__value">UTC${timezone}</h2>
+          </div>
+          <div class="line-horizontal"></div>
+        </div>
+
+        <div
+          class="w-1/4 px-10 font-medium max-tl:px-6 max-bp:mx-auto max-bp:w-full max-bp:px-1"
+        >
+          <p class="data__name">ISP</p>
+          <h2 class="data__value">${isp}</h2>
+        </div>`;
+    clear();
+    mainContent.insertAdjacentHTML("afterbegin", markup);
+};
+const renderError = function (msg) {
+    const markup = `<div class="error mx-auto p-6">
+          <div>
+            <img src="images/icon-alert-triangle.svg" alt="" />
+          </div>
+          <p>${msg}</p>
+        </div>`;
+    clear();
+    mainContent.insertAdjacentHTML("afterbegin", markup);
 };
 const getLocation = function () {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const res = yield fetch(`https://geo.ipify.org/api/v2/country,city?apiKey=${"at_2FXcYc9PkYDG1F6AY5vVFyC9L5oHX"}&ipAddress=172.217.255.255`);
             const res2 = yield fetch(`http://ip-api.com/json/`);
-            const data = yield res.json();
             const data2 = yield res2.json();
-            console.log(data);
             console.log(data2);
+            return data2;
         }
         catch (error) {
             console.error("Error:", error);
+            throw error;
         }
     });
 };
-fetchLocation();
-getLocation();
+const loadData = function () {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            renderSpinner();
+            const data = yield getLocation();
+            renderData(data);
+        }
+        catch (error) {
+            console.error("Error:", error);
+            renderError(error.message);
+        }
+    });
+};
+loadData();
 export {};
