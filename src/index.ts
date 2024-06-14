@@ -87,10 +87,10 @@ const renderError = function (msg: string): void {
   mainContent.insertAdjacentHTML("afterbegin", markup);
 };
 
-const getLocation = async function (): Promise<object> {
+const getLocation = async function (ip: string = ""): Promise<object> {
   try {
     const res: any = await Promise.race([
-      fetch(`http://ipwho.is/www.google.com`),
+      fetch(`http://ipwho.is/${ip}`),
       timeout(seconds),
     ]);
     const data: any = await res.json();
@@ -101,7 +101,6 @@ const getLocation = async function (): Promise<object> {
     throw err;
   }
 };
-// getLocation();
 
 const loadData: any = async function (): Promise<void> {
   try {
@@ -113,4 +112,23 @@ const loadData: any = async function (): Promise<void> {
   }
 };
 
+const handleSubmit = async function (): Promise<void> {
+  try {
+    const reg: RegExp =
+      /^(?:(?:\d{1,3}\.){3}\d{1,3}|(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,})$/;
+    renderSpinner();
+    if (userInput.value === "") throw new Error("Field is empty");
+    if (!reg.test(userInput.value))
+      throw new Error("Whoops, make sure it's an ip address");
+    const data: object = await getLocation(userInput.value);
+    renderData(data);
+    userInput.value = "";
+  } catch (err: any) {
+    renderError(err.message);
+  }
+};
 loadData();
+userForm.addEventListener("submit", (e: any) => {
+  e.preventDefault();
+  handleSubmit();
+});
