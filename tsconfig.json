@@ -9,7 +9,6 @@
     "strict": true // Enable all strict type-checking options
   },
   "include": [
-    "src/**/*.ts", // Include all TypeScript files in the src folder
-    "src/config.ts"
+    "src/**/*.ts" // Include all TypeScript files in the src folder
   ]
 }

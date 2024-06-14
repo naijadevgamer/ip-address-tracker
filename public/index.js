@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -10,12 +11,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 const userForm = document.querySelector("form");
 const userInput = document.querySelector("input");
 const mainContent = document.querySelector("main");
-let second = 10;
+let seconds = 10;
 const timeout = function (s) {
     return new Promise(function (_, reject) {
         setTimeout(function () {
-            reject(new Error(`Request took too long! Timeout after ${s} second`));
-        }, s * 1000);
+            reject(new Error(`Request took too long! Timeout after ${seconds} second`));
+        }, seconds * 1000);
     });
 };
 const clear = function () {
@@ -74,9 +75,14 @@ const renderError = function (msg) {
 const getLocation = function () {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const res = yield fetch(`http://ipwho.is/`);
+            const res = yield Promise.race([
+                fetch(`http://ipwho.is/www.google.com`),
+                timeout(seconds),
+            ]);
             const data = yield res.json();
             console.log(data);
+            if (!data.success)
+                throw new Error("Could not retrieve data");
             return data;
         }
         catch (err) {
@@ -97,4 +103,3 @@ const loadData = function () {
     });
 };
 loadData();
-export {};

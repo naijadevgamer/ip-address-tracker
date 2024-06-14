@@ -1,17 +1,16 @@
-import { API_KEY } from "./config";
-
 const userForm = document.querySelector("form") as HTMLFormElement;
 const userInput = document.querySelector("input") as HTMLInputElement;
 const mainContent = document.querySelector("main") as HTMLElement;
 
-let second = 10;
+let seconds: number = 10;
 
-// 105.119.0.160
-const timeout = function (s: number) {
+const timeout = function (s: number): Promise<object> {
   return new Promise(function (_, reject) {
     setTimeout(function () {
-      reject(new Error(`Request took too long! Timeout after ${s} second`));
-    }, s * 1000);
+      reject(
+        new Error(`Request took too long! Timeout after ${seconds} second`)
+      );
+    }, seconds * 1000);
   });
 };
 
@@ -76,6 +75,7 @@ const renderData = function (data: any): void {
   clear();
   mainContent.insertAdjacentHTML("afterbegin", markup);
 };
+
 const renderError = function (msg: string): void {
   const markup = `<div class="error mx-auto p-6">
           <div>
@@ -86,13 +86,16 @@ const renderError = function (msg: string): void {
   clear();
   mainContent.insertAdjacentHTML("afterbegin", markup);
 };
-// const res = await Promise.race([fetchPro, timeout(seconds)]);
 
 const getLocation = async function (): Promise<object> {
   try {
-    const res: any = await fetch(`http://ipwho.is/`);
-    const data: object = await res.json();
+    const res: any = await Promise.race([
+      fetch(`http://ipwho.is/www.google.com`),
+      timeout(seconds),
+    ]);
+    const data: any = await res.json();
     console.log(data);
+    if (!data.success) throw new Error("Could not retrieve data");
     return data;
   } catch (err: any) {
     throw err;
