@@ -1,3 +1,6 @@
+/// <reference types="leaflet" />
+// declare var L: any;
+
 const userForm = document.querySelector("form") as HTMLFormElement;
 const userInput = document.querySelector("input") as HTMLInputElement;
 const mainContent = document.querySelector("main") as HTMLElement;
@@ -132,3 +135,12 @@ userForm.addEventListener("submit", (e: any) => {
   e.preventDefault();
   handleSubmit();
 });
+
+// Initialize the map
+const map: any = L.map("map").setView([51.505, -0.09], 13);
+
+L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  maxZoom: 19,
+  attribution:
+    '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+}).addTo(map);
