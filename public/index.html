@@ -17,6 +17,17 @@
       href="./images/favicon-32x32.png"
     />
     <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
     <script src="index.js" defer></script>
     <title>IP Address Tracker</title>
   </head>
@@ -96,7 +107,10 @@
     </header>
 
     <!-- Map  -->
-    <div class="map-h w-full bg-dark-gray relative border-t border-dark-gray">
+    <div
+      class="map-h w-full bg-dark-gray relative border-t border-dark-gray"
+      id="map"
+    >
       <!-- <div class="loader mx-auto mt-60"></div> -->
       <!-- Error message  -->
       <!-- <div class="error mx-auto mt-20">
