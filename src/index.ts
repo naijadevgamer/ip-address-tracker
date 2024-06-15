@@ -64,7 +64,7 @@ const renderData = function (data: any): void {
         <div class="data">
           <div class="pl-10 max-tl:pl-6 max-bp:px-1">
             <p class="data__name">Timezone</p>
-            <h2 class="data__value">UTC${utc}</h2>
+            <h2 class="data__value">UTC ${utc}</h2>
           </div>
           <div class="line-horizontal"></div>
         </div>
@@ -144,3 +144,15 @@ L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
   attribution:
     '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
 }).addTo(map);
+
+var myIcon = L.icon({
+  iconUrl: "images/icon-location.svg",
+  iconSize: [45, 60],
+  iconAnchor: [22, 94],
+  popupAnchor: [-3, -76],
+  // shadowUrl: "my-icon-shadow.png",
+  // shadowSize: [68, 95],
+  // shadowAnchor: [22, 94],
+});
+
+const marker: any = L.marker([51.5, -0.09], { icon: myIcon }).addTo(map);

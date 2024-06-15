@@ -574,10 +574,6 @@ video {
   z-index: 10;
 }
 
-.z-50 {
-  z-index: 50;
-}
-
 .z-20 {
   z-index: 20;
 }
@@ -676,15 +672,6 @@ video {
 
 .rounded-3xl {
   border-radius: 1.5rem;
-}
-
-.border-t {
-  border-top-width: 1px;
-}
-
-.border-dark-gray {
-  --tw-border-opacity: 1;
-  border-color: hsl(0 0% 59% / var(--tw-border-opacity));
 }
 
 .bg-black {
@@ -822,8 +809,8 @@ video {
 .data__name {
   margin-bottom: 0.75rem;
   font-size: 1.5rem;
-  font-weight: 700;
   text-transform: uppercase;
+  letter-spacing: 0.1em;
   --tw-text-opacity: 1;
   color: hsl(0 0% 59% / var(--tw-text-opacity));
 }

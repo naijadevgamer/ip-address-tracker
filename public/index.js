@@ -48,7 +48,7 @@ const renderData = function (data) {
         <div class="data">
           <div class="pl-10 max-tl:pl-6 max-bp:px-1">
             <p class="data__name">Timezone</p>
-            <h2 class="data__value">UTC${utc}</h2>
+            <h2 class="data__value">UTC ${utc}</h2>
           </div>
           <div class="line-horizontal"></div>
         </div>
@@ -130,3 +130,10 @@ L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
 }).addTo(map);
+var myIcon = L.icon({
+    iconUrl: "images/icon-location.svg",
+    iconSize: [45, 60],
+    iconAnchor: [22, 94],
+    popupAnchor: [-3, -76],
+});
+const marker = L.marker([51.5, -0.09], { icon: myIcon }).addTo(map);
