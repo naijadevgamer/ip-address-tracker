@@ -8,6 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+let map;
 const userForm = document.querySelector("form");
 const userInput = document.querySelector("input");
 const mainContent = document.querySelector("main");
@@ -73,13 +74,14 @@ const renderError = function (msg) {
     mainContent.insertAdjacentHTML("afterbegin", markup);
 };
 const loadMap = function (position) {
+    if (map) {
+        map.remove();
+    }
     const [lat, lng] = position;
-    let map = L.map("map").setView([lat, lng], 20);
+    map = L.map("map").setView([lat, lng], 16);
     let myIcon = L.icon({
         iconUrl: "images/icon-location.svg",
-        iconSize: [45, 60],
-        iconAnchor: [22, 94],
-        popupAnchor: [-3, -76],
+        iconSize: [45, 55],
     });
     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 19,
@@ -98,6 +100,7 @@ const getLocation = function () {
             console.log(data);
             if (!data.success)
                 throw new Error("Could not retrieve data");
+            loadMap([data.latitude, data.longitude]);
             return data;
         }
         catch (err) {
@@ -111,7 +114,6 @@ const loadData = function () {
             renderSpinner();
             const data = yield getLocation();
             renderData(data);
-            loadMap([data.latitude, data.longitude]);
         }
         catch (err) {
             renderError(err.message);
@@ -129,10 +131,10 @@ const handleSubmit = function () {
                 throw new Error("Whoops, make sure it's an ip address");
             const data = yield getLocation(userInput.value);
             renderData(data);
-            loadMap([data.latitude, data.longitude]);
             userInput.value = "";
         }
         catch (err) {
+            console.error(err);
             renderError(err.message);
         }
     });

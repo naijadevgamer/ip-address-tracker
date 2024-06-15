@@ -14,7 +14,7 @@
 }
 
 .data__value {
-  @apply text-5xl text-very-dark-gray max-tl:text-[2.5rem];
+  @apply text-5xl text-black max-tl:text-[2.5rem];
 }
 
 .map-h {

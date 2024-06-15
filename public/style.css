@@ -819,7 +819,7 @@ video {
   font-size: 3rem;
   line-height: 1;
   --tw-text-opacity: 1;
-  color: hsl(0 0% 17% / var(--tw-text-opacity));
+  color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
 @media not all and (min-width: 1160px) {

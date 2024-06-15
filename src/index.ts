@@ -1,4 +1,5 @@
 /// <reference types="leaflet" />
+let map: L.Map | undefined;
 
 const userForm = document.querySelector("form") as HTMLFormElement;
 const userInput = document.querySelector("input") as HTMLInputElement;
@@ -91,13 +92,14 @@ const renderError = function (msg: string): void {
 
 const loadMap = function (position: number[]): void {
   // Initialize the map
+  if (map) {
+    map.remove(); // Remove the existing map instance
+  }
   const [lat, lng] = position;
-  let map: any = L.map("map").setView([lat, lng], 20);
+  map = L.map("map").setView([lat, lng], 16);
   let myIcon: any = L.icon({
     iconUrl: "images/icon-location.svg",
-    iconSize: [45, 60],
-    iconAnchor: [22, 94],
-    popupAnchor: [-3, -76],
+    iconSize: [45, 55],
   });
 
   L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -118,6 +120,7 @@ const getLocation = async function (ip: string = ""): Promise<object> {
     const data: any = await res.json();
     console.log(data);
     if (!data.success) throw new Error("Could not retrieve data");
+    loadMap([data.latitude, data.longitude]);
     return data;
   } catch (err: any) {
     throw err;
@@ -129,7 +132,6 @@ const loadData: any = async function (): Promise<void> {
     renderSpinner();
     const data: any = await getLocation();
     renderData(data);
-    loadMap([data.latitude, data.longitude]);
   } catch (err: any) {
     renderError(err.message);
   }
@@ -145,9 +147,9 @@ const handleSubmit = async function (): Promise<void> {
       throw new Error("Whoops, make sure it's an ip address");
     const data: any = await getLocation(userInput.value);
     renderData(data);
-    loadMap([data.latitude, data.longitude]);
     userInput.value = "";
   } catch (err: any) {
+    console.error(err);
     renderError(err.message);
   }
 };
