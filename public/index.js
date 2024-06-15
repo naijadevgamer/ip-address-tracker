@@ -72,6 +72,21 @@ const renderError = function (msg) {
     clear();
     mainContent.insertAdjacentHTML("afterbegin", markup);
 };
+const loadMap = function (position) {
+    const [lat, lng] = position;
+    let map = L.map("map").setView([lat, lng], 20);
+    let myIcon = L.icon({
+        iconUrl: "images/icon-location.svg",
+        iconSize: [45, 60],
+        iconAnchor: [22, 94],
+        popupAnchor: [-3, -76],
+    });
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    }).addTo(map);
+    let marker = L.marker([lat, lng], { icon: myIcon }).addTo(map);
+};
 const getLocation = function () {
     return __awaiter(this, arguments, void 0, function* (ip = "") {
         try {
@@ -96,6 +111,7 @@ const loadData = function () {
             renderSpinner();
             const data = yield getLocation();
             renderData(data);
+            loadMap([data.latitude, data.longitude]);
         }
         catch (err) {
             renderError(err.message);
@@ -113,6 +129,7 @@ const handleSubmit = function () {
                 throw new Error("Whoops, make sure it's an ip address");
             const data = yield getLocation(userInput.value);
             renderData(data);
+            loadMap([data.latitude, data.longitude]);
             userInput.value = "";
         }
         catch (err) {
@@ -125,15 +142,3 @@ userForm.addEventListener("submit", (e) => {
     e.preventDefault();
     handleSubmit();
 });
-const map = L.map("map").setView([51.505, -0.09], 13);
-L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-}).addTo(map);
-var myIcon = L.icon({
-    iconUrl: "images/icon-location.svg",
-    iconSize: [45, 60],
-    iconAnchor: [22, 94],
-    popupAnchor: [-3, -76],
-});
-const marker = L.marker([51.5, -0.09], { icon: myIcon }).addTo(map);

@@ -1,5 +1,4 @@
 /// <reference types="leaflet" />
-// declare var L: any;
 
 const userForm = document.querySelector("form") as HTMLFormElement;
 const userInput = document.querySelector("input") as HTMLInputElement;
@@ -90,6 +89,26 @@ const renderError = function (msg: string): void {
   mainContent.insertAdjacentHTML("afterbegin", markup);
 };
 
+const loadMap = function (position: number[]): void {
+  // Initialize the map
+  const [lat, lng] = position;
+  let map: any = L.map("map").setView([lat, lng], 20);
+  let myIcon: any = L.icon({
+    iconUrl: "images/icon-location.svg",
+    iconSize: [45, 60],
+    iconAnchor: [22, 94],
+    popupAnchor: [-3, -76],
+  });
+
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    attribution:
+      '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  }).addTo(map);
+
+  let marker: any = L.marker([lat, lng], { icon: myIcon }).addTo(map);
+};
+
 const getLocation = async function (ip: string = ""): Promise<object> {
   try {
     const res: any = await Promise.race([
@@ -108,8 +127,9 @@ const getLocation = async function (ip: string = ""): Promise<object> {
 const loadData: any = async function (): Promise<void> {
   try {
     renderSpinner();
-    const data: object = await getLocation();
+    const data: any = await getLocation();
     renderData(data);
+    loadMap([data.latitude, data.longitude]);
   } catch (err: any) {
     renderError(err.message);
   }
@@ -123,8 +143,9 @@ const handleSubmit = async function (): Promise<void> {
     if (userInput.value === "") throw new Error("Field is empty");
     if (!reg.test(userInput.value))
       throw new Error("Whoops, make sure it's an ip address");
-    const data: object = await getLocation(userInput.value);
+    const data: any = await getLocation(userInput.value);
     renderData(data);
+    loadMap([data.latitude, data.longitude]);
     userInput.value = "";
   } catch (err: any) {
     renderError(err.message);
@@ -135,24 +156,3 @@ userForm.addEventListener("submit", (e: any) => {
   e.preventDefault();
   handleSubmit();
 });
-
-// Initialize the map
-const map: any = L.map("map").setView([51.505, -0.09], 13);
-
-L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  maxZoom: 19,
-  attribution:
-    '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-}).addTo(map);
-
-var myIcon = L.icon({
-  iconUrl: "images/icon-location.svg",
-  iconSize: [45, 60],
-  iconAnchor: [22, 94],
-  popupAnchor: [-3, -76],
-  // shadowUrl: "my-icon-shadow.png",
-  // shadowSize: [68, 95],
-  // shadowAnchor: [22, 94],
-});
-
-const marker: any = L.marker([51.5, -0.09], { icon: myIcon }).addTo(map);
