@@ -13,22 +13,20 @@ const userForm = document.querySelector("form");
 const userInput = document.querySelector("input");
 const mainContent = document.querySelector("main");
 let seconds = 10;
-const timeout = function (s) {
-    return new Promise(function (_, reject) {
-        setTimeout(function () {
-            reject(new Error(`Request took too long! Timeout after ${seconds} second`));
-        }, seconds * 1000);
-    });
-};
-const clear = function () {
+const timeout = (s) => new Promise((_, reject) => {
+    setTimeout(() => {
+        reject(new Error(`Request took too long! Timeout after ${s} seconds`));
+    }, s * 1000);
+});
+const clearContent = () => {
     mainContent.innerHTML = "";
 };
-const renderSpinner = function () {
+const renderSpinner = () => {
     const markup = `<div class="loader mx-auto"></div>`;
-    clear();
+    clearContent();
     mainContent.insertAdjacentHTML("afterbegin", markup);
 };
-const renderData = function (data) {
+const renderData = (data) => {
     const { ip, connection: { isp }, city, timezone: { utc }, region_code: regionCode, postal, } = data;
     const markup = `<div class="data">
           <div class="pl-10 max-tl:pl-6 max-bp:px-1">
@@ -60,26 +58,26 @@ const renderData = function (data) {
           <p class="data__name">ISP</p>
           <h2 class="data__value">${isp}</h2>
         </div>`;
-    clear();
+    clearContent();
     mainContent.insertAdjacentHTML("afterbegin", markup);
 };
-const renderError = function (msg) {
+const renderError = (msg) => {
     const markup = `<div class="error mx-auto p-6">
           <div>
             <img src="images/icon-alert-triangle.svg" alt="" />
           </div>
           <p>${msg}</p>
         </div>`;
-    clear();
+    clearContent();
     mainContent.insertAdjacentHTML("afterbegin", markup);
 };
-const loadMap = function (position) {
+const loadMap = (position) => {
     if (map) {
         map.remove();
     }
     const [lat, lng] = position;
     map = L.map("map").setView([lat, lng], 16);
-    let myIcon = L.icon({
+    const myIcon = L.icon({
         iconUrl: "images/icon-location.svg",
         iconSize: [45, 55],
     });
@@ -87,39 +85,34 @@ const loadMap = function (position) {
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     }).addTo(map);
-    let marker = L.marker([lat, lng], { icon: myIcon }).addTo(map);
+    L.marker([lat, lng], { icon: myIcon }).addTo(map);
 };
-const getLocation = function () {
-    return __awaiter(this, arguments, void 0, function* (ip = "") {
-        try {
-            const res = yield Promise.race([
-                fetch(`http://ipwho.is/${ip}`),
-                timeout(seconds),
-            ]);
-            const data = yield res.json();
-            console.log(data);
-            if (!data.success)
-                throw new Error("Could not retrieve data");
-            loadMap([data.latitude, data.longitude]);
-            return data;
-        }
-        catch (err) {
-            throw err;
-        }
-    });
-};
-const loadData = function () {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            renderSpinner();
-            const data = yield getLocation();
-            renderData(data);
-        }
-        catch (err) {
-            renderError(err.message);
-        }
-    });
-};
+const getLocation = (...args_1) => __awaiter(void 0, [...args_1], void 0, function* (ip = "") {
+    try {
+        const res = yield Promise.race([
+            fetch(`http://ipwho.is/${ip}`),
+            timeout(seconds),
+        ]);
+        const data = yield res.json();
+        if (!data.success)
+            throw new Error("Could not retrieve data");
+        loadMap([data.latitude, data.longitude]);
+        return data;
+    }
+    catch (err) {
+        throw err;
+    }
+});
+const loadData = () => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        renderSpinner();
+        const data = yield getLocation();
+        renderData(data);
+    }
+    catch (err) {
+        renderError(err.message);
+    }
+});
 const handleSubmit = function () {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -128,13 +121,12 @@ const handleSubmit = function () {
             if (userInput.value === "")
                 throw new Error("Field is empty");
             if (!reg.test(userInput.value))
-                throw new Error("Whoops, make sure it's an ip address");
+                throw new Error("Whoops, make sure it's an IP address or domain");
             const data = yield getLocation(userInput.value);
             renderData(data);
             userInput.value = "";
         }
         catch (err) {
-            console.error(err);
             renderError(err.message);
         }
     });
