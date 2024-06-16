@@ -119,6 +119,7 @@ const loadMap = (position: [number, number]): void => {
   }
   const [lat, lng] = position;
   map = L.map("map").setView([lat, lng], 16);
+
   const myIcon = L.icon({
     iconUrl: "images/icon-location.svg",
     iconSize: [45, 55],
@@ -141,11 +142,11 @@ const loadMap = (position: [number, number]): void => {
  */
 const getLocation = async (ip: string = ""): Promise<any> => {
   try {
-    const res: any = await Promise.race([
+    const res = await Promise.race([
       fetch(`http://ipwho.is/${ip}`),
       timeout(seconds),
     ]);
-    const data: any = await res.json();
+    const data = await res.json();
     if (!data.success) throw new Error("Could not retrieve data");
     loadMap([data.latitude, data.longitude]);
     return data;
@@ -158,7 +159,7 @@ const getLocation = async (ip: string = ""): Promise<any> => {
 const loadData = async (): Promise<void> => {
   try {
     renderSpinner();
-    const data: any = await getLocation();
+    const data = await getLocation();
     renderData(data);
   } catch (err: any) {
     renderError(err.message);
@@ -168,7 +169,7 @@ const loadData = async (): Promise<void> => {
 // Handles the form submission, validates input, fetches location data, and updates the UI
 const handleSubmit = async function (): Promise<void> {
   try {
-    const reg: RegExp =
+    const reg =
       /^(?:(?:\d{1,3}\.){3}\d{1,3}|(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,})$/;
     renderSpinner();
     if (userInput.value === "") throw new Error("Field is empty");
