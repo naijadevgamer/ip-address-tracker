@@ -1,17 +1,21 @@
 <h1 align="center">IP Address Tracker App 🗺️📍</h1>
 
 <div align="center">
-   Solution for a challenge from <a href="https://www.frontendmentor.io/challenges/ip-address-tracker-I8-0yYAH0" target="_blank">Frontend Mentor</a>.
+   Solution for a challenge from <a href="https://www.frontendmentor.io" target="_blank">Frontend Mentor</a>.
 </div>
 
 <div align="center">
   <h3>
-    <a href="https://your-live-site-url.com">
+    <a href="https://naijadevgamer.github.io/ip-address-tracker">
      Live Demo
     </a>
     <span> | </span>
     <a href="https://github.com/naijadevgamer/ip-address-tracker">
       Solution
+    </a>
+    <span> | </span>
+    <a href="https://www.frontendmentor.io/challenges/ip-address-tracker-I8-0yYAH0">
+      Challenge
     </a>
   </h3>
 </div>
@@ -26,7 +30,7 @@
   - [What I Learned](#what-i-learned)
 - [Features](#-features)
 - [How To Use](#-how-to-use)
-- [Author](#-author)
+- [Author](#author)
 - [Acknowledgements](#-acknowledgements)
 
 ---
@@ -97,9 +101,6 @@ $ cd ip-address-tracker
 
 # Install dependencies
 $ npm install
-
-# Build the app
-$ npm run build
 
 # Run the app
 $ npm start
