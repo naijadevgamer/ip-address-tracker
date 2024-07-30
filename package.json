@@ -4,7 +4,7 @@
   "description": "![Design preview for the IP address tracker coding challenge](./design/desktop-preview.jpg)",
   "main": "index.js",
   "scripts": {
-    "watch:tailwind": "npx tailwindcss -i ./src/input.css -o ./public/style.css --watch",
+    "watch:tailwind": "npx tailwindcss -i ./src/input.css -o ./public/style.css --minify --watch",
     "watch:ts": "tsc --watch",
     "devserver": "live-server public",
     "start": "npm-run-all --parallel devserver watch:tailwind watch:ts"

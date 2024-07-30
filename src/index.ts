@@ -143,11 +143,12 @@ const loadMap = (position: [number, number]): void => {
 const getLocation = async (ip: string = ""): Promise<any> => {
   try {
     const res = await Promise.race([
-      fetch(`http://ipwho.is/${ip}`),
+      fetch(`https://ipwho.is/${ip}`),
       timeout(seconds),
     ]);
     const data = await res.json();
-    if (!data.success) throw new Error("Could not retrieve data");
+    if (!data.success)
+      throw new Error(data.message || "Could not retrieve data");
     loadMap([data.latitude, data.longitude]);
     return data;
   } catch (err: any) {

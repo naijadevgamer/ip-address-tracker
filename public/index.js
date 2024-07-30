@@ -90,12 +90,12 @@ const loadMap = (position) => {
 const getLocation = (...args_1) => __awaiter(void 0, [...args_1], void 0, function* (ip = "") {
     try {
         const res = yield Promise.race([
-            fetch(`http://ipwho.is/${ip}`),
+            fetch(`https://ipwho.is/${ip}`),
             timeout(seconds),
         ]);
         const data = yield res.json();
         if (!data.success)
-            throw new Error("Could not retrieve data");
+            throw new Error(data.message || "Could not retrieve data");
         loadMap([data.latitude, data.longitude]);
         return data;
     }
