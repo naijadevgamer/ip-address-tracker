@@ -19,8 +19,8 @@ module.exports = {
         18: "18px",
       },
       backgroundImage: {
-        "pattern-d": "url('/images/pattern-bg-desktop.png')",
-        "pattern-m": "url('/images/pattern-bg-mobile.png')",
+        "pattern-d": "url('./images/pattern-bg-desktop.png')",
+        "pattern-m": "url('./images/pattern-bg-mobile.png')",
       },
       screens: {
         "large-desktop": "1800px", // 1800px
